@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "hashicorp/precise32"
 
   # Define the box name
-  config.vm.define "phonegap-box" do |t|
+  config.vm.define "cordova-box" do |t|
   end
   
   # SSH
@@ -22,23 +22,27 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.forward_x11 = true
 
   # Defines shell as the box provision
-  config.vm.provision :shell, path: 'vagrant.sh'
-  config.vm.provision :shell, path: 'android_update.sh', privileged: false
+  config.vm.provision :shell, path: 'bootstrap.sh'
+  config.vm.provision :shell, path: 'android.sh', privileged: false
+  config.vm.provision :shell, path: 'npm.sh', privileged: false
 
   # Hack to fix the "stdin: is not a tty" bug
   config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
   # Allow USB on the box
   config.vm.provider :virtualbox do |vb|
-    vb.name = "phonegap-box"
+    vb.name = "cordova-box"
     vb.customize ['modifyvm', :id, '--usb', 'on']
 	# Enable symlinks for Windows. Uncomment if you're on Windows. 
 	# NOTE: you must run the command prompt as administrator or it won't work
-   #vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
+  # vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
   end
 
-  config.vm.network "forwarded_port", guest: 8000, host: 8001
-  config.vm.network "forwarded_port", guest: 3000, host: 3030 
+  #config.vm.network "forwarded_port", guest: 8000, host: 8001
+  #config.vm.network "forwarded_port", guest: 3000, host: 3030
+  
+  #requires the grunt  hostname is configured as 0.0.0.0
+  config.vm.network "forwarded_port", guest: 9000, host: 9000  
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs

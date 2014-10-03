@@ -1,14 +1,16 @@
-# phonegap-box #
+# cordova-box #
 
-A **vagrant** box provisioned with the phonegap development environment for the **android** platform. **All you have to do** is to clone the repository, fire `vagrant up` and add your android device to VirtualBox. After that you are ready to begin your phonegap project.
+A **vagrant** box provisioned with the cordova development environment for the **android** platform. **All you have to do** is to clone the repository, fire `vagrant up` and add your android device to VirtualBox. After that you are ready to begin your cordova project.
+
+This box is configured to work with the yeoman generator **generator-angularjs-cordova** and adds the tools required to generate a skeleton project.
 
 ## Installation ##
 
 ### 1) Download and install the box ###
 
 1. install vagrant http://docs.vagrantup.com/v2/installation/index.html
-2. run `git clone git@github.com:vasconcelloslf/phonegap-box.git`
-3. run `cd phonegap-box`
+2. run `git clone https://github.com/jonaseck2/cordova-box.git`
+3. run `cd cordova-box`
 3. run `vagrant up`
 
 #### Note for Windows hosts:
@@ -29,7 +31,7 @@ You must use the elevated command prompt to work with the machine. Running `vagr
 The box doesn't have an UI, so there is no emulator, you can only install on the device. In order to do so, you need to configure the VirtualBox to see your device through a USB port:
 
 0. Plug the device
-1. VirtualBox -> phonegap-box -> Settings -> Ports -> USB -> Add Filter -> (Select your android device)
+1. VirtualBox -> cordova-box -> Settings -> Ports -> USB -> Add Filter -> (Select your android device)
 2. (your device) Settings -> Developer Options -> USB Debugging (remark if it alreday marked)
 3. (your device) A prompt to allow the virtual machine will appear. Click ok.
 4. Plug and unplug the USB device.
@@ -42,13 +44,13 @@ In order to resolve the `?????? no permissions` problem:
 * adb start-server
 * adb devices
 
-### 3) Create and run your phonegap project ###
+### 3) Create and run your cordova project ###
 
 1. run `vagrant ssh`
 2. run `cd /vagrant`
-3. run `phonegap create folder-name -n ProjectName`
+3. run `cordova create folder-name -n ProjectName`
 4. run `cd folder-name`
-5. run `phonegap run android`
+5. run `cordova run android`
 
 **That's it.**
 
@@ -63,3 +65,35 @@ This box will install and configure the following:
 * Java JRE
 * Java SDK
 * Android ADT
+* Ant
+* grunt-cli
+* bower
+* yo
+* cordova
+
+### 4) Generate and start generator-angularjs-cordova skeleton:
+1. create a basic cordova project
+run `cordova create HelloCordova && cd HelloCordova`
+2. add android platform
+run `cordova platform add android`
+3. install the cordova-angularjs generator
+run `npm install -g generator-angularjs-cordova`
+4. Run the generator, answer the questions and wait for the project to be generated
+run `yo angularjs-cordova`
+5. Change the default grunt port to 0.0.0.0 to expose the port outside of the box
+run `sed -i -e 's/localhost/0.0.0.0/'`
+6. build the project
+run `grunt build && cordova build`
+7. test android emulation
+run `cordova emulate android`
+8. test the webapp
+run `grunt serve`
+
+TL;DR 
+1. run `cordova create HelloCordova && cd HelloCordova && cordova platform add android && npm install -g generator-angularjs-cordova && yo angularjs-cordova && sed -i -e 's/localhost/0.0.0.0/' Gruntfile.js`
+2. Answer the questions and wait for the project to be generated
+3. run 'grunt build && cordova build'
+4. test android emulation
+run `cordova emulate android`
+5. test the webapp
+run `grunt serve`
