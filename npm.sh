@@ -7,5 +7,7 @@ if [ ! -d "${HOME}/.npm-packages" ] ; then
 	echo 'prefix=${HOME}/.npm-packages' >> ${HOME}/.npmrc
 	echo 'MANPATH="$NPM_PACKAGES/share/man:$(manpath)"' >> ${HOME}/.bash_profile
 
-	npm install -g grunt-cli bower yo cordova
+	source ${HOME}/.bash_profile
+
+	npm install -g grunt-cli bower yo cordova ionic
 fi

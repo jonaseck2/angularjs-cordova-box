@@ -11,6 +11,6 @@ apt-get -y update
 
 apt-get -y install nodejs
 
-apt-get -y install openjdk-7-jre
 apt-get -y install openjdk-7-jdk
 apt-get -y install ant
+apt-get -y install expect
