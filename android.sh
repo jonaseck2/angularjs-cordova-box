@@ -8,6 +8,13 @@ if [ ! -d "${HOME}/android-sdk-linux/" ] ; then
 	intel_image_url="http://download-software.intel.com/sites/landingpage/android/${intel_image}"
 	android_device="Nexus S"
 
+	echo 'export ANDROID_SDK_HOME=/vagrant/.android'
+	echo "export ANDROID_HOME=${HOME}/android-sdk-linux" >> ${HOME}/.bash_profile
+	echo 'export PATH=${PATH}:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/tools' >> ${HOME}/.bash_profile
+	echo 'export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-i386' >> ${HOME}/.bash_profile
+	
+	source ${HOME}/.bash_profile
+
 	#download android sdk
 	mkdir -vp /vagrant/.download/
 	if [ ! -f "/vagrant/.download/${android_sdk}" ] ; then
@@ -16,12 +23,6 @@ if [ ! -d "${HOME}/android-sdk-linux/" ] ; then
 	fi
 
 	tar -xvzf /vagrant/.download/${android_sdk}
-
-	echo "export ANDROID_HOME=${HOME}/android-sdk-linux" >> ${HOME}/.bash_profile
-	echo 'export PATH=${PATH}:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/tools' >> ${HOME}/.bash_profile
-	echo 'export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-i386' >> ${HOME}/.bash_profile
-	
-	source ${HOME}/.bash_profile
 
 	expect -c '
 	set timeout -1   ;

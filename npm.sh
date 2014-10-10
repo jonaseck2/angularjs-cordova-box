@@ -9,5 +9,5 @@ if [ ! -d "${HOME}/.npm-packages" ] ; then
 
 	source ${HOME}/.bash_profile
 
-	npm install -g grunt-cli bower yo cordova ionic
+	npm install -g grunt-cli@~0.4.1 bower@~1.3.3 yo cordova@3.5.0-0.2.4
 fi

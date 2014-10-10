@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "hashicorp/precise32"
 
   # Define the box name
-  config.vm.define "cordova-box" do |t|
+  config.vm.define "angularjs-cordova-box" do |t|
   end
   
   # SSH
@@ -31,7 +31,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Allow USB on the box
   config.vm.provider :virtualbox do |vb|
-    vb.name = "cordova-box"
+    vb.name = "angularjs-cordova-box"
     vb.customize ['modifyvm', :id, '--usb', 'on']
 	# Enable symlinks for Windows. Uncomment if you're on Windows. 
 	# NOTE: you must run the command prompt as administrator or it won't work
