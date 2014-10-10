@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
 if [ ! -d "${HOME}/.npm-packages" ] ; then
+	sudo apt-get -y install python-software-properties python g++ make
+	sudo add-apt-repository -y ppa:chris-lea/node.js
+	sudo apt-get -y update
+	sudo apt-get -y install nodejs
+
 	echo 'NPM_PACKAGES="${HOME}/.npm-packages"' >> ${HOME}/.bash_profile
 	echo 'PATH=${PATH}:${NPM_PACKAGES}/bin' >> ${HOME}/.bash_profile
 	echo 'NODE_PATH="${NPM_PACKAGES}/lib/node_modules:${NODE_PATH}"' >> ${HOME}/.bash_profile
@@ -9,5 +14,5 @@ if [ ! -d "${HOME}/.npm-packages" ] ; then
 
 	source ${HOME}/.bash_profile
 
-	npm install -g grunt-cli@~0.4.1 bower@~1.3.3 yo cordova@3.5.0-0.2.4
+	npm install -g bower grunt-cli yo cordova generator-angularjs-cordova
 fi

@@ -26,6 +26,8 @@ If you're using Windows as a host, then you will have problems trying to use the
 
 You must use the elevated command prompt to work with the machine. Running `vagrant up` from a non-elevated command prompt causes the machine to be unable to sync the share and see items created from the Windows side.
 
+npm commands on shared folders do not work, even with symlink support or --no-bin-links. Currently the only workaround is to install npm in windows and run the commands on the windows host. Copying or cloning the generated project to a windows share and running npm install works fine.
+
 ### 2) Configure your device on the box ###
 
 The box doesn't have an UI, so there is no emulator, you can only install on the device. In order to do so, you need to configure the VirtualBox to see your device through a USB port:
@@ -44,14 +46,19 @@ In order to resolve the `?????? no permissions` problem:
 * adb start-server
 * adb devices
 
-### 3) Create and run your cordova project ###
+### 3) Create and run your generator-angularjs-cordova project ###
 
 1. run `vagrant ssh`
 2. run `cd /vagrant`
 3. run `cordova create folder-name -n ProjectName`
 4. run `cd folder-name`
-5. run `cordova run android`
+5. run `yo angularjs-cordova`
 
+6. run `sed -i -e s/localhost/0.0.0.0/' Gruntfile.js`
+7. run `grunt serve`
+
+8. run `cordova build`
+9. run `cordova emulate android`
 **That's it.**
 
 ## About ##
@@ -62,38 +69,10 @@ This box will install and configure the following:
 * Git
 * Node.js
 * Npm
-* Java JRE
 * Java SDK
-* Android ADT
+* Android SDK
 * Ant
 * grunt-cli
 * bower
 * yo
 * cordova
-
-### 4) Generate and start generator-angularjs-cordova skeleton:
-1. create a basic cordova project
-run `cordova create HelloCordova && cd HelloCordova`
-2. add android platform
-run `cordova platform add android`
-3. install the cordova-angularjs generator
-run `npm install -g generator-angularjs-cordova`
-4. Run the generator, answer the questions and wait for the project to be generated
-run `yo angularjs-cordova`
-5. Change the default grunt port to 0.0.0.0 to expose the port outside of the box
-run `sed -i -e 's/localhost/0.0.0.0/'`
-6. build the project
-run `grunt build && cordova build`
-7. test android emulation
-run `cordova emulate android`
-8. test the webapp
-run `grunt serve`
-
-TL;DR 
-1. run `cordova create HelloCordova && cd HelloCordova && cordova platform add android && npm install -g generator-angularjs-cordova && yo angularjs-cordova && sed -i -e 's/localhost/0.0.0.0/' Gruntfile.js`
-2. Answer the questions and wait for the project to be generated
-3. run 'grunt build && cordova build'
-4. test android emulation
-run `cordova emulate android`
-5. test the webapp
-run `grunt serve`
