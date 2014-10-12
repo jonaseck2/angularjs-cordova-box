@@ -15,4 +15,6 @@ if [ ! -d "${HOME}/.npm-packages" ] ; then
 	source ${HOME}/.bash_profile
 
 	npm install -g bower grunt-cli yo cordova generator-angularjs-cordova
+	#workaround for missing deps when executing cordova build
+	npm install -g shelljs q where
 fi
