@@ -43,6 +43,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   #requires the grunt  hostname is configured as 0.0.0.0
   config.vm.network "forwarded_port", guest: 9000, host: 9000  
+  config.vm.network "forwarded_port", guest: 35729, host: 35729
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
