@@ -6,11 +6,11 @@ if [ ! -d "${HOME}/.npm-packages" ] ; then
 	sudo apt-get -y update
 	sudo apt-get -y install nodejs
 
-	echo 'NPM_PACKAGES="${HOME}/.npm-packages"' >> ${HOME}/.bash_profile
-	echo 'PATH=${PATH}:${NPM_PACKAGES}/bin' >> ${HOME}/.bash_profile
-	echo 'NODE_PATH="${NPM_PACKAGES}/lib/node_modules:${NODE_PATH}"' >> ${HOME}/.bash_profile
+	echo 'export NPM_PACKAGES="${HOME}/.npm-packages"' >> ${HOME}/.profile
+	echo 'export PATH=${PATH}:${NPM_PACKAGES}/bin' >> ${HOME}/.profile
+	echo 'export NODE_PATH="${NPM_PACKAGES}/lib/node_modules:${NODE_PATH}"' >> ${HOME}/.profile
 	echo 'prefix=${HOME}/.npm-packages' >> ${HOME}/.npmrc
-	echo 'MANPATH="$NPM_PACKAGES/share/man:$(manpath)"' >> ${HOME}/.bash_profile
+	echo 'export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"' >> ${HOME}/.profile
 
 	source ${HOME}/.bash_profile
 
